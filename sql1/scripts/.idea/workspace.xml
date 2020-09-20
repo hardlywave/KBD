@@ -19,7 +19,30 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cd14c40a-19c8-443e-84a3-0dd07a109ea7" name="Default Changelist" comment="" />
+    <list default="true" id="cd14c40a-19c8-443e-84a3-0dd07a109ea7" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/queries/querie_10.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/queries/querie_11.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/queries/querie_12.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/queries/querie_13.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/queries/querie_14.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/queries/querie_15.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/queries/querie_16.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/queries/querie_17.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/queries/querie_18.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/queries/querie_19.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/queries/querie_20.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/queries/querie_21.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/queries/querie_22.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/queries/querie_23.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/queries/querie_24.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/queries/querie_25.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/queries/querie_26.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/queries/querie_6.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/queries/querie_7.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/queries/querie_8.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/queries/querie_9.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/queries/querie_4.sql" beforeDir="false" afterPath="$PROJECT_DIR$/queries/querie_4.sql" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -35,7 +58,9 @@
     <option name="version" value="1" />
   </component>
   <component name="ProjectId" id="1hip4TsgtOwtxALvulq5RRykjty" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -47,6 +72,19 @@
     <property name="aspect.path.notification.shown" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
+  <component name="RunManager">
+    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -56,7 +94,7 @@
       <option name="presentableId" value="Default" />
       <updated>1600503575659</updated>
       <workItem from="1600503577316" duration="66000" />
-      <workItem from="1600503698827" duration="38000" />
+      <workItem from="1600503698827" duration="10268000" />
     </task>
     <servers />
   </component>
@@ -80,9 +118,29 @@
       <screen x="59" y="27" width="1861" height="948" />
     </state>
     <state x="584" y="161" width="800" height="677" key="#com.intellij.execution.impl.EditConfigurationsDialog/59.27.1861.948@59.27.1861.948" timestamp="1600503735090" />
+    <state x="686" y="302" width="597" height="396" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1600612736667">
+      <screen x="59" y="27" width="1861" height="948" />
+    </state>
+    <state x="686" y="302" width="597" height="396" key="#com.intellij.fileTypes.FileTypeChooser/59.27.1861.948@59.27.1861.948" timestamp="1600612736667" />
     <state x="772" y="258" width="424" height="484" key="FileChooserDialogImpl" timestamp="1600503639916">
       <screen x="59" y="27" width="1861" height="948" />
     </state>
     <state x="772" y="258" width="424" height="484" key="FileChooserDialogImpl/59.27.1861.948@59.27.1861.948" timestamp="1600503639916" />
+    <state width="1249" height="244" key="GridCell.Tab.0.bottom" timestamp="1600615882749">
+      <screen x="59" y="27" width="1861" height="948" />
+    </state>
+    <state width="1249" height="244" key="GridCell.Tab.0.bottom/59.27.1861.948@59.27.1861.948" timestamp="1600615882749" />
+    <state width="1249" height="244" key="GridCell.Tab.0.center" timestamp="1600615882748">
+      <screen x="59" y="27" width="1861" height="948" />
+    </state>
+    <state width="1249" height="244" key="GridCell.Tab.0.center/59.27.1861.948@59.27.1861.948" timestamp="1600615882748" />
+    <state width="1249" height="244" key="GridCell.Tab.0.left" timestamp="1600615882747">
+      <screen x="59" y="27" width="1861" height="948" />
+    </state>
+    <state width="1249" height="244" key="GridCell.Tab.0.left/59.27.1861.948@59.27.1861.948" timestamp="1600615882747" />
+    <state width="1249" height="244" key="GridCell.Tab.0.right" timestamp="1600615882748">
+      <screen x="59" y="27" width="1861" height="948" />
+    </state>
+    <state width="1249" height="244" key="GridCell.Tab.0.right/59.27.1861.948@59.27.1861.948" timestamp="1600615882748" />
   </component>
 </project>
