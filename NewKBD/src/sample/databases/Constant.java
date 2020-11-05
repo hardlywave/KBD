@@ -31,6 +31,7 @@ public class Constant {
     public static final String UPDATE = "UPDATE ";
     public static final String SET = " SET ";
 
+    public static final String VALUES = "VALUES ";
     public static final String COMMA = ", ";
     public static final String EQUAL = " = ";
     public static final String SEMICOLON = ";";
@@ -74,5 +75,13 @@ public class Constant {
     public static final String SELECT_SORT_MIN_CALORIES = "SELECT foodstuff_name, calories_food FROM foodstuff ORDER BY calories_food";
 
     public static final String LEFT_JOIN_FOODSTUFF_RECIPE = " " + LEFT_JOIN + RECIPE + ON + FS_RECIPE_ID + EQUAL + RC_RECIPE_ID;
+
+    //Values for tables
+    public static final String VALUES_AUTHOR = "(author_id, author_lastname, author_firstname, author_country, birthday)";
+    public static final String VALUES_CONSIGNMENT = "(date, provider_id, ingredients, price)";
+    public static final String VALUES_FOODSTUFF = "(foodstuff_name, ingredients, recipe_id, calories_food)";
+    public static final String VALUES_INGREDIENTS_INFO = "(ingredients, weight, method_for_preparing)";
+    public static final String VALUES_PROVIDER = "(provider_id, ingredients, address, phone)";
+    public static final String VALUES_RECIPE = "(recipe_id, recipe_name, description, author_id)";
 
 }

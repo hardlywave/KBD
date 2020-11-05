@@ -125,5 +125,402 @@ public class DataBase {
                 Constant.AUTHOR_ID + Constant.EQUAL + recipe.getAuthorId();
         return result;
     }
+
+    private void setAuthor() throws ClassNotFoundException, SQLException {
+        author = new ArrayList<>();
+        Class.forName("com.mysql.jdbc.Driver");
+        settingProperties();
+        Connection connection = DriverManager.getConnection(url, p);
+        try (Statement statement = connection.createStatement()) {
+            ResultSet resultSet = statement.executeQuery(Constant.SELECT_AUTHOR);
+            while (resultSet.next()) {
+                author.add(new Author(
+                        Integer.parseInt(resultSet.getString(1)),
+                        resultSet.getString(2),
+                        resultSet.getString(3),
+                        resultSet.getString(4),
+                        resultSet.getString(5)));
+            }
+            System.out.println("We're created Author.");
+        }
+    }
+
+    private void setConsignment() throws ClassNotFoundException, SQLException {
+        consignment = new ArrayList<>();
+        Class.forName("com.mysql.jdbc.Driver");
+        settingProperties();
+        Connection connection = DriverManager.getConnection(url, p);
+        try (Statement statement = connection.createStatement()) {
+            ResultSet resultSet = statement.executeQuery(Constant.SELECT_CONSIGNMENT);
+            while (resultSet.next()) {
+                consignment.add(new Consignment(
+                        resultSet.getString(1),
+                        Integer.parseInt(resultSet.getString(2)),
+                        resultSet.getString(3),
+                        Integer.parseInt(resultSet.getString(3))));
+            }
+            System.out.println("We're created location Of Consignment.");
+        }
+    }
+
+    private void setFoodstuff() throws ClassNotFoundException, SQLException {
+        foodstuff = new ArrayList<>();
+        Class.forName("com.mysql.jdbc.Driver");
+        settingProperties();
+        Connection connection = DriverManager.getConnection(url, p);
+        try (Statement statement = connection.createStatement()) {
+            ResultSet resultSet = statement.executeQuery(Constant.SELECT_FOODSTUFF);
+            while (resultSet.next()) {
+                foodstuff.add(new Foodstuff(
+                        resultSet.getString(1),
+                        resultSet.getString(2),
+                        Integer.parseInt(resultSet.getString(3)),
+                        Integer.parseInt(resultSet.getString(4))));
+            }
+            System.out.println("We're created Food Stuff.");
+        }
+    }
+
+    private void setIngredients_info() throws ClassNotFoundException, SQLException {
+        ingredients_info = new ArrayList<>();
+        Class.forName("com.mysql.jdbc.Driver");
+        settingProperties();
+        Connection connection = DriverManager.getConnection(url, p);
+        try (Statement statement = connection.createStatement()) {
+            ResultSet resultSet = statement.executeQuery(Constant.SELECT_INGREDIENTS_INFO);
+            while (resultSet.next()) {
+                ingredients_info.add(new Ingredients_info(
+                        resultSet.getString(1),
+                        Integer.parseInt(resultSet.getString(2)),
+                        resultSet.getString(3),
+                        Integer.parseInt(resultSet.getString(4))));
+            }
+            System.out.println("We're created Ingredients information.");
+        }
+    }
+
+    private void setProvider() throws ClassNotFoundException, SQLException {
+        provider = new ArrayList<>();
+        Class.forName("com.mysql.jdbc.Driver");
+        settingProperties();
+        Connection connection = DriverManager.getConnection(url, p);
+        try (Statement statement = connection.createStatement()) {
+            ResultSet resultSet = statement.executeQuery(Constant.SELECT_PROVIDER);
+            while (resultSet.next()) {
+                provider.add(new Provider(
+                        Integer.parseInt(resultSet.getString(1)),
+                        resultSet.getString(2),
+                        resultSet.getString(3),
+                        Integer.parseInt(resultSet.getString(4))));
+            }
+            System.out.println("We're created Provider.");
+        }
+    }
+
+    private void setRecipe() throws ClassNotFoundException, SQLException {
+        recipe = new ArrayList<>();
+        Class.forName("com.mysql.jdbc.Driver");
+        settingProperties();
+        Connection connection = DriverManager.getConnection(url, p);
+        try (Statement statement = connection.createStatement()) {
+            ResultSet resultSet = statement.executeQuery(Constant.SELECT_RECIPE);
+            while (resultSet.next()) {
+                recipe.add(new Recipe(
+                        Integer.parseInt(resultSet.getString(1)),
+                        resultSet.getString(2),
+                        resultSet.getString(3),
+                        Integer.parseInt(resultSet.getString(4))));
+            }
+            System.out.println("We're created Recipe.");
+        }
+    }
+
+    public void addAuthor(Author added) throws SQLException {
+        Connection connection = DriverManager.getConnection(url, p);
+        try (Statement statement = connection.createStatement()) {
+            String eq = Constant.INSERT + Constant.AUTHOR + Constant.VALUES_AUTHOR +
+                    Constant.VALUES + Constant.LEFT_BRACKET +
+                    added.getAutorId() + Constant.COMMA +
+                    addAp(added.getAuthorLastName()) + Constant.COMMA +
+                    addAp(added.getAuthorFirstName()) + Constant.COMMA +
+                    addAp(added.getAuthorCountry()) + Constant.COMMA +
+                    addAp(added.getBirthday()) + Constant.RIGHT_BRACKET + Constant.SEMICOLON;
+            statement.executeUpdate(eq);
+            author.add(added);
+            System.out.println("We're added.");
+        }
+    }
+
+    public void addConsignment(Consignment added) throws SQLException {
+        Connection connection = DriverManager.getConnection(url, p);
+        try (Statement statement = connection.createStatement()) {
+            String eq = Constant.INSERT + Constant.CONSIGNMENT + Constant.VALUES_CONSIGNMENT +
+                    Constant.VALUES + Constant.LEFT_BRACKET +
+                    addAp(added.getDate()) + Constant.COMMA +
+                    added.getProviderId() + Constant.COMMA +
+                    addAp(added.getIngredients()) + Constant.COMMA +
+                    added.getPrice() + Constant.RIGHT_BRACKET + Constant.SEMICOLON;
+            statement.executeUpdate(eq);
+            consignment.add(added);
+            System.out.println("We're added.");
+        }
+    }
+
+    public void addFoodStuff(Foodstuff added) throws SQLException {
+        Connection connection = DriverManager.getConnection(url, p);
+        try (Statement statement = connection.createStatement()) {
+            String eq = Constant.INSERT + Constant.FOODSTUFF + Constant.VALUES_FOODSTUFF +
+                    Constant.VALUES + Constant.LEFT_BRACKET +
+                    addAp(added.getFoodStuffName()) + Constant.COMMA +
+                    addAp(added.getIngredients()) + Constant.COMMA +
+                    added.getRecipeId() + Constant.COMMA +
+                    added.getCaloriesFood() + Constant.RIGHT_BRACKET + Constant.SEMICOLON;
+            statement.executeUpdate(eq);
+            foodstuff.add(added);
+            System.out.println("We're added.");
+        }
+    }
+
+    public void addIngredientsInfo(Ingredients_info added) throws SQLException {
+        Connection connection = DriverManager.getConnection(url, p);
+        try (Statement statement = connection.createStatement()) {
+            String eq = Constant.INSERT + Constant.INGREDIENTS_INFO + Constant.VALUES_INGREDIENTS_INFO +
+                    Constant.VALUES + Constant.LEFT_BRACKET +
+                    addAp(added.getIngredients()) + Constant.COMMA +
+                    added.getWeight() + Constant.COMMA +
+                    addAp(added.getMethodForPreparing()) + Constant.COMMA +
+                    added.getCalories() + Constant.RIGHT_BRACKET + Constant.SEMICOLON;
+            statement.executeUpdate(eq);
+            ingredients_info.add(added);
+            System.out.println("We're added.");
+        }
+    }
+
+    public void addProvider(Provider added) throws SQLException {
+        Connection connection = DriverManager.getConnection(url, p);
+        try (Statement statement = connection.createStatement()) {
+            String eq = Constant.INSERT + Constant.PROVIDER + Constant.VALUES_PROVIDER +
+                    Constant.VALUES + Constant.LEFT_BRACKET +
+                    added.getProviderId() + Constant.COMMA +
+                    addAp(added.getIngredients()) + Constant.COMMA +
+                    addAp(added.getAddress()) + Constant.COMMA +
+                    added.getPhone() + Constant.RIGHT_BRACKET + Constant.SEMICOLON;
+            statement.executeUpdate(eq);
+            provider.add(added);
+            System.out.println("We're added.");
+        }
+    }
+
+    public void addRecipe(Recipe added) throws SQLException {
+        Connection connection = DriverManager.getConnection(url, p);
+        try (Statement statement = connection.createStatement()) {
+            String eq = Constant.INSERT + Constant.RECIPE + Constant.VALUES_RECIPE +
+                    Constant.VALUES + Constant.LEFT_BRACKET +
+                    added.getRecipeId() + Constant.COMMA +
+                    addAp(added.getRecipeName()) + Constant.COMMA +
+                    addAp(added.getDescription()) + Constant.COMMA +
+                    added.getAuthorId() + Constant.RIGHT_BRACKET + Constant.SEMICOLON;
+            statement.executeUpdate(eq);
+            recipe.add(added);
+            System.out.println("We're added.");
+        }
+    }
+
+    public void deleteAuthor(Author deleted) throws SQLException {
+        Connection connection = DriverManager.getConnection(url, p);
+        try (Statement statement = connection.createStatement()) {
+            String eq = Constant.DELETE + Constant.AUTHOR + whereAuthor(deleted) + Constant.SEMICOLON;
+            statement.executeUpdate(eq);
+            for (int i = 0; i < author.size(); i++) {
+                if (author.get(i) == deleted) {
+                    author.remove(i);
+                }
+            }
+        }
+    }
+
+    public void deleteConsignment(Consignment deleted) throws SQLException {
+        Connection connection = DriverManager.getConnection(url, p);
+        try (Statement statement = connection.createStatement()) {
+            String eq = Constant.DELETE + Constant.CONSIGNMENT + whereConsignment(deleted) + Constant.SEMICOLON;
+            statement.executeUpdate(eq);
+            for (int i = 0; i < consignment.size(); i++) {
+                if (consignment.get(i) == deleted) {
+                    consignment.remove(i);
+                }
+            }
+        }
+    }
+
+    public void deleteFoodStuff(Foodstuff deleted) throws SQLException {
+        Connection connection = DriverManager.getConnection(url, p);
+        try (Statement statement = connection.createStatement()) {
+            String eq = Constant.DELETE + Constant.FOODSTUFF + whereFoodstuff(deleted) + Constant.SEMICOLON;
+            statement.executeUpdate(eq);
+            for (int i = 0; i < foodstuff.size(); i++) {
+                if (foodstuff.get(i) == deleted) {
+                    foodstuff.remove(i);
+                }
+            }
+        }
+    }
+
+    public void deleteIngredientsInfo(Ingredients_info deleted) throws SQLException {
+        Connection connection = DriverManager.getConnection(url, p);
+        try (Statement statement = connection.createStatement()) {
+            String eq = Constant.DELETE + Constant.INGREDIENTS_INFO + whereIngredients_info(deleted) + Constant.SEMICOLON;
+            statement.executeUpdate(eq);
+            for (int i = 0; i < ingredients_info.size(); i++) {
+                if (ingredients_info.get(i) == deleted) {
+                    ingredients_info.remove(i);
+                }
+            }
+        }
+    }
+
+    public void deleteProvider(Provider deleted) throws SQLException {
+        Connection connection = DriverManager.getConnection(url, p);
+        try (Statement statement = connection.createStatement()) {
+            String eq = Constant.DELETE + Constant.PROVIDER + whereProvider(deleted) + Constant.SEMICOLON;
+            statement.executeUpdate(eq);
+            for (int i = 0; i < provider.size(); i++) {
+                if (provider.get(i) == deleted) {
+                    provider.remove(i);
+                }
+            }
+        }
+    }
+
+    public void deleteRecipe(Recipe deleted) throws SQLException {
+        Connection connection = DriverManager.getConnection(url, p);
+        try (Statement statement = connection.createStatement()) {
+            String eq = Constant.DELETE + Constant.RECIPE + whereRecipe(deleted) + Constant.SEMICOLON;
+            statement.executeUpdate(eq);
+            for (int i = 0; i < recipe.size(); i++) {
+                if (recipe.get(i) == deleted) {
+                    recipe.remove(i);
+                }
+            }
+        }
+    }
+
+    public void editAuthor(Author edited, Author newAuthor) throws SQLException {
+        Connection connection = DriverManager.getConnection(url, p);
+        try (Statement statement = connection.createStatement()) {
+            String eq = Constant.UPDATE + Constant.AUTHOR + Constant.SET +
+                    Constant.AUTHOR_ID + Constant.EQUAL + newAuthor.getAutorId() + Constant.COMMA +
+                    Constant.AUTHOR_LASTNAME + Constant.EQUAL + addAp(newAuthor.getAuthorLastName()) + Constant.COMMA +
+                    Constant.AUTHOR_FIRSTNAME + Constant.EQUAL + addAp(newAuthor.getAuthorFirstName()) + Constant.COMMA +
+                    Constant.AUTHOR_COUNTRY + Constant.EQUAL + addAp(newAuthor.getAuthorCountry()) + Constant.COMMA +
+                    Constant.BIRTHDAY + Constant.EQUAL + addAp(newAuthor.getBirthday()) + whereAuthor(edited) + Constant.SEMICOLON;
+            statement.executeUpdate(eq);
+            for (int i = 0; i < author.size(); i++) {
+                if (author.get(i) == edited) {
+                    author.set(i, newAuthor);
+                    break;
+                }
+            }
+        }
+    }
+
+    public void editConsignment(Consignment edited, Consignment newConsignment) throws SQLException {
+        Connection connection = DriverManager.getConnection(url, p);
+        try (Statement statement = connection.createStatement()) {
+            String eq = Constant.UPDATE + Constant.CONSIGNMENT + Constant.SET +
+                    Constant.DATE + Constant.EQUAL + addAp(newConsignment.getDate()) + Constant.COMMA +
+                    Constant.PROVIDER_ID + Constant.EQUAL + newConsignment.getProviderId() + Constant.COMMA +
+                    Constant.INGREDIENTS + Constant.EQUAL + addAp(newConsignment.getIngredients()) + Constant.COMMA +
+                    Constant.PRICE + Constant.EQUAL + newConsignment.getPrice() + whereConsignment(edited) + Constant.SEMICOLON;
+            statement.executeUpdate(eq);
+            for (int i = 0; i < consignment.size(); i++) {
+                if (consignment.get(i) == edited) {
+                    consignment.set(i, newConsignment);
+                    break;
+                }
+            }
+        }
+    }
+
+    public void editFoodStuff(Foodstuff edited, Foodstuff newFoodStuff) throws SQLException {
+        Connection connection = DriverManager.getConnection(url, p);
+        try (Statement statement = connection.createStatement()) {
+            String eq = Constant.UPDATE + Constant.FOODSTUFF + Constant.SET +
+                    Constant.FOODSTUFF_NAME + Constant.EQUAL + addAp(newFoodStuff.getFoodStuffName()) + Constant.COMMA +
+                    Constant.INGREDIENTS + Constant.EQUAL + addAp(newFoodStuff.getIngredients()) + Constant.COMMA +
+                    Constant.RECIPE_ID + Constant.EQUAL + newFoodStuff.getRecipeId() + Constant.COMMA +
+                    Constant.CALORIES_FOOD + Constant.EQUAL + newFoodStuff.getCaloriesFood() + whereFoodstuff(edited) + Constant.SEMICOLON;
+            statement.executeUpdate(eq);
+            for (int i = 0; i < consignment.size(); i++) {
+                if (foodstuff.get(i) == edited) {
+                    foodstuff.set(i, newFoodStuff);
+                    break;
+                }
+            }
+        }
+    }
+
+    public void editIngredientsInfo(Ingredients_info edited, Ingredients_info newIngredientsInfo) throws SQLException {
+        Connection connection = DriverManager.getConnection(url, p);
+        try (Statement statement = connection.createStatement()) {
+            String eq = Constant.UPDATE + Constant.INGREDIENTS_INFO + Constant.SET +
+                    Constant.INGREDIENTS + Constant.EQUAL + addAp(newIngredientsInfo.getIngredients()) + Constant.COMMA +
+                    Constant.WEIGHT + Constant.EQUAL + newIngredientsInfo.getWeight() + Constant.COMMA +
+                    Constant.METHOD_FOR_PREPARING + Constant.EQUAL + addAp(newIngredientsInfo.getMethodForPreparing()) + Constant.COMMA +
+                    Constant.CALORIES + Constant.EQUAL + newIngredientsInfo.getCalories() + whereIngredients_info(edited) + Constant.SEMICOLON;
+            statement.executeUpdate(eq);
+            for (int i = 0; i < ingredients_info.size(); i++) {
+                if (ingredients_info.get(i) == edited) {
+                    ingredients_info.set(i, newIngredientsInfo);
+                    break;
+                }
+            }
+        }
+    }
+
+    public void editProvider(Provider edited, Provider newProvider) throws SQLException {
+        Connection connection = DriverManager.getConnection(url, p);
+        try (Statement statement = connection.createStatement()) {
+            String eq = Constant.UPDATE + Constant.PROVIDER + Constant.SET +
+                    Constant.PROVIDER_ID + Constant.EQUAL + newProvider.getProviderId() + Constant.COMMA +
+                    Constant.INGREDIENTS + Constant.EQUAL + addAp(newProvider.getIngredients()) + Constant.COMMA +
+                    Constant.ADDRESS + Constant.EQUAL + addAp(newProvider.getAddress()) + Constant.COMMA +
+                    Constant.PHONE + Constant.EQUAL + newProvider.getPhone() + whereProvider(edited) + Constant.SEMICOLON;
+            statement.executeUpdate(eq);
+            for (int i = 0; i < provider.size(); i++) {
+                if (provider.get(i) == edited) {
+                    provider.set(i, newProvider);
+                    break;
+                }
+            }
+        }
+    }
+
+    public void editRecipe(Recipe edited, Recipe newRecipe) throws SQLException {
+        Connection connection = DriverManager.getConnection(url, p);
+        try (Statement statement = connection.createStatement()) {
+            String eq = Constant.UPDATE + Constant.RECIPE + Constant.SET +
+                    Constant.RECIPE_ID + Constant.EQUAL + newRecipe.getRecipeId() + Constant.COMMA +
+                    Constant.RECIPE_NAME + Constant.EQUAL + addAp(newRecipe.getRecipeName()) + Constant.COMMA +
+                    Constant.DESCRIPTION + Constant.EQUAL + addAp(newRecipe.getDescription()) + Constant.COMMA +
+                    Constant.AUTHOR_ID + Constant.EQUAL + newRecipe.getAuthorId() + whereRecipe(edited) + Constant.SEMICOLON;
+            statement.executeUpdate(eq);
+            for (int i = 0; i < recipe.size(); i++) {
+                if (recipe.get(i) == edited) {
+                    recipe.set(i, newRecipe);
+                    break;
+                }
+            }
+        }
+    }
+
+    public DataBase() throws ClassNotFoundException, SQLException {
+        setAuthor();
+        setConsignment();
+        setFoodstuff();
+        setIngredients_info();
+        setProvider();
+        setRecipe();
+        System.out.println("We're created database.");
+    }
 }
 
