@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Properties;
 
 public class DataBase {
-    private String url = "jdbc:mysql://localhost:3306/kbd2?useSSL=false";
+    private String url = "jdbc:mysql://localhost:3306/kbd2";
     private Properties p;
 
     private List<Author> author;
@@ -20,7 +20,7 @@ public class DataBase {
     private void settingProperties() {
         p = new Properties();
         p.setProperty("user", "root");
-        p.setProperty("password", "root");
+        p.setProperty("password", "31082001");
         p.setProperty("useUnicode", "true");
         p.setProperty("characterEncoding", "cp1251");
     }
@@ -54,23 +54,44 @@ public class DataBase {
         return recipe;
     }
 
-    private String eqSearchConsignment(String date, String number){
+    //Search for tasks
+    public String eqSearchConsignment(String date, int number){
         String result = Constant.SELECT_CONSIGNMENT +
             Constant.WHERE + Constant.CONSIGNMENT_DATE + Constant.EQUAL + addAp(date) +
-            Constant.CONSIGNMENT_PROVIDER_ID + Constant.EQUAL + addAp(number);
+            Constant.CONSIGNMENT_PROVIDER_ID + Constant.EQUAL + number;
         return result;
     }
 
-    private String eqSearchFoodStuffRecipe(){
+    public List<Consignment> searchConsignment(String date, int number) throws SQLException, ClassNotFoundException {
+        ArrayList<Consignment> result = new ArrayList<>();
+        Class.forName("com.mysql.jdbc.Driver");
+        settingProperties();
+        Connection connection = DriverManager.getConnection(url, p);
+        try (Statement statement = connection.createStatement()) {
+            ResultSet resultSet = statement.executeQuery(eqSearchConsignment(date, number));
+            while (resultSet.next()) {
+                result.add(new Consignment(
+                        resultSet.getString(1),
+                        Integer.parseInt(resultSet.getString(2)),
+                        resultSet.getString(3),
+                        Integer.parseInt(resultSet.getString(4))));
+            }
+            //System.out.println("We're created Technics.");
+        }
+        return result;
+    }
+
+    public String eqSearchFoodStuffRecipe(){
         String result = Constant.SELECT_FOODNAME_RECIPENAME + Constant.LEFT_JOIN_FOODSTUFF_RECIPE;
         return result;
     }
 
-    private String eqSearchMinCalories(){
+    public String eqSearchMinCalories(){
         String result = Constant.SELECT_SORT_MIN_CALORIES;
         return result;
     }
 
+    //"Where" for tables, to take special things from tables
     private String whereAuthor(Author author) {
         String result = Constant.WHERE +
                 Constant.AUTHOR_ID + Constant.EQUAL + author.getAutorId() + Constant.AND +
@@ -126,6 +147,7 @@ public class DataBase {
         return result;
     }
 
+    //"Set" for all tables
     private void setAuthor() throws ClassNotFoundException, SQLException {
         author = new ArrayList<>();
         Class.forName("com.mysql.jdbc.Driver");
@@ -141,7 +163,7 @@ public class DataBase {
                         resultSet.getString(4),
                         resultSet.getString(5)));
             }
-            System.out.println("We're created Author.");
+           // System.out.println("We're created Author.");
         }
     }
 
@@ -157,9 +179,9 @@ public class DataBase {
                         resultSet.getString(1),
                         Integer.parseInt(resultSet.getString(2)),
                         resultSet.getString(3),
-                        Integer.parseInt(resultSet.getString(3))));
+                        Integer.parseInt(resultSet.getString(4))));
             }
-            System.out.println("We're created location Of Consignment.");
+           // System.out.println("We're created location Of Consignment.");
         }
     }
 
@@ -177,7 +199,7 @@ public class DataBase {
                         Integer.parseInt(resultSet.getString(3)),
                         Integer.parseInt(resultSet.getString(4))));
             }
-            System.out.println("We're created Food Stuff.");
+           // System.out.println("We're created Food Stuff.");
         }
     }
 
@@ -195,7 +217,7 @@ public class DataBase {
                         resultSet.getString(3),
                         Integer.parseInt(resultSet.getString(4))));
             }
-            System.out.println("We're created Ingredients information.");
+           // System.out.println("We're created Ingredients information.");
         }
     }
 
@@ -213,7 +235,7 @@ public class DataBase {
                         resultSet.getString(3),
                         Integer.parseInt(resultSet.getString(4))));
             }
-            System.out.println("We're created Provider.");
+            //System.out.println("We're created Provider.");
         }
     }
 
@@ -231,10 +253,11 @@ public class DataBase {
                         resultSet.getString(3),
                         Integer.parseInt(resultSet.getString(4))));
             }
-            System.out.println("We're created Recipe.");
+            //System.out.println("We're created Recipe.");
         }
     }
 
+    //"Add" for all tables
     public void addAuthor(Author added) throws SQLException {
         Connection connection = DriverManager.getConnection(url, p);
         try (Statement statement = connection.createStatement()) {
@@ -326,6 +349,7 @@ public class DataBase {
         }
     }
 
+    //"Delete" for all tables
     public void deleteAuthor(Author deleted) throws SQLException {
         Connection connection = DriverManager.getConnection(url, p);
         try (Statement statement = connection.createStatement()) {
@@ -404,6 +428,7 @@ public class DataBase {
         }
     }
 
+    //"Edit" for all tables
     public void editAuthor(Author edited, Author newAuthor) throws SQLException {
         Connection connection = DriverManager.getConnection(url, p);
         try (Statement statement = connection.createStatement()) {
@@ -513,6 +538,7 @@ public class DataBase {
         }
     }
 
+    //Function for create DataBase
     public DataBase() throws ClassNotFoundException, SQLException {
         setAuthor();
         setConsignment();
@@ -520,7 +546,7 @@ public class DataBase {
         setIngredients_info();
         setProvider();
         setRecipe();
-        System.out.println("We're created database.");
+        //System.out.println("We're created database.");
     }
 }
 
