@@ -12,6 +12,7 @@ public class Menu {
     }
 
     public void startMenu() {
+        Menu menu = new Menu();
         System.out.println("1 - Food Stuff\n" +
                 "2 - Recipe\n" +
                 "3 - Providers\n" +
@@ -35,7 +36,6 @@ public class Menu {
                     e.printStackTrace();
                     System.out.println("Error" + e);
                 }
-
             }
             case 2: {
                 try {
@@ -47,20 +47,61 @@ public class Menu {
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 } catch (ClassNotFoundException e) {
-                    e.printStackTrace();
                     System.out.println("Error" + e);
+                    e.printStackTrace();
                 }
+                break;
             }
             case 3: {
+                try {
+                    System.out.println("-----------------------------------------------------------------");
+                    System.out.println("\t" + "Provider id" + "\t" + "Ingredients" + "\t\t" + "address" + "\t\t" + "Phone");
+                    System.out.println("-----------------------------------------------------------------");
+                    creatProvider();
+                    System.out.println("-----------------------------------------------------------------");
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                } catch (ClassNotFoundException e) {
+                    System.out.println("Error" + e);
+                    e.printStackTrace();
+                }
+                break;
+            }
+            case 4:{
                 try {
                     serchConsignment();
                     System.out.println("-----------------------------------------------------------------");
                 } catch (SQLException throwables) {
                     throwables.printStackTrace();
                 } catch (ClassNotFoundException e) {
-                    e.printStackTrace();
                     System.out.println("Error" + e);
+                    e.printStackTrace();
                 }
+                break;
+            }
+            case 5:{
+                try {
+                    searchMinCalories();
+                    System.out.println("-----------------------------------------------------------------");
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                } catch (ClassNotFoundException e) {
+                    System.out.println("Error" + e);
+                    e.printStackTrace();
+                }
+                break;
+            }
+            case 6:{
+                try {
+                    searchFoodStuffRecipe();
+                    System.out.println("-----------------------------------------------------------------");
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                } catch (ClassNotFoundException e) {
+                    System.out.println("Error" + e);
+                    e.printStackTrace();
+                }
+                break;
             }
         }
     }
@@ -78,6 +119,7 @@ public class Menu {
             System.out.println("\t" + test + "\t" + test1 + "\t\t" + test2 + "\t\t\t" + test3);
             i++;
         }
+        i = 0;
     }
 
     public void creatRecipe() throws SQLException, ClassNotFoundException {
@@ -93,6 +135,7 @@ public class Menu {
             System.out.println("\t\t" + test + "\t\t" + test1 + "\t\t\t" + test2 + "\t\t\t\t" + test3);
             i++;
         }
+        i = 0;
     }
 
     public void creatProvider() throws SQLException, ClassNotFoundException {
@@ -105,9 +148,10 @@ public class Menu {
             String test2 = providers.get(i).getAddress();
             int test3 = providers.get(i).getPhone();
 
-            System.out.println("\t\t" + test + "\t\t" + test1 + "\t\t\t" + test2 + "\t\t\t\t" + test3);
+            System.out.println("\t\t" + test + "\t\t" + test1 + "\t\t\t" + test2 + "\t\t" + test3);
             i++;
         }
+        i = 0;
     }
 
     public void serchConsignment() throws SQLException, ClassNotFoundException {
@@ -118,7 +162,7 @@ public class Menu {
         System.out.println("Enter the data(xx.xx.xxxx): ");
         String data = scanner.nextLine();
         System.out.println("Enter Provider id: ");
-        int id = scanner.nextInt();
+        String id = scanner.nextLine();
         List<Consignment> consignments = db.searchConsignment(data,id);
         System.out.println("-----------------------------------------------------------------");
         System.out.println("\t" + "Date" + "\t" + "Provider id" + "\t\t" + "Ingredients" + "\t\t" + "Price");
@@ -129,8 +173,47 @@ public class Menu {
             String test2 = consignments.get(i).getIngredients();
             int test3 = consignments.get(i).getPrice();
 
-            System.out.println("\t\t" + test + "\t\t" + test1 + "\t\t\t" + test2 + "\t\t\t\t" + test3);
+            System.out.println(" " + test + "  \t" + test1 + "\t\t\t" + test2 + "\t\t" + test3);
             i++;
         }
+        i = 0;
+    }
+
+    public void searchMinCalories() throws SQLException, ClassNotFoundException {
+        DataBase db = new DataBase();
+        int i = 0;
+        List<Foodstuff> foodstuffs = db.searchMinCalories();
+        System.out.println("-----------------------------------------------------------------");
+        System.out.println("\t" + "Food Staff" + "\t" + "Ingredients" + "\t\t" + "Recipe id" + "\t" + "Calories");
+        System.out.println("-----------------------------------------------------------------");
+        while (i < foodstuffs.size()) {
+            String test = foodstuffs.get(i).getFoodStuffName();
+            String test1 = foodstuffs.get(i).getIngredients();
+            int test2 = foodstuffs.get(i).getRecipeId();
+            int test3 = foodstuffs.get(i).getCaloriesFood();
+
+            System.out.println("\t" + test + "\t" + test1 + "\t\t" + test2 + "\t\t\t" + test3);
+            i++;
+        }
+        i = 0;
+    }
+
+    public void searchFoodStuffRecipe() throws SQLException, ClassNotFoundException {
+        DataBase db = new DataBase();
+        int i = 0;
+        List<Foodstuff> foodstuffs = db.searchFoodStuffRecipe();
+        System.out.println("-----------------------------------------------------------------");
+        System.out.println("\t" + "Date" + "\t" + "Provider id" + "\t\t" + "Ingredients" + "\t\t" + "Price");
+        System.out.println("-----------------------------------------------------------------");
+        while (i < foodstuffs.size()) {
+            String test = foodstuffs.get(i).getFoodStuffName();
+            String test1 = foodstuffs.get(i).getIngredients();
+            int test2 = foodstuffs.get(i).getRecipeId();
+            int test3 = foodstuffs.get(i).getCaloriesFood();
+
+            System.out.println(" " + test + "  \t" + test1 + "\t\t\t" + test2 + "\t\t" + test3);
+            i++;
+        }
+        i = 0;
     }
 }

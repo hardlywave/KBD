@@ -55,14 +55,14 @@ public class DataBase {
     }
 
     //Search for tasks
-    public String eqSearchConsignment(String date, int number){
+    public String eqSearchConsignment(String date, String number){
         String result = Constant.SELECT_CONSIGNMENT +
-            Constant.WHERE + Constant.CONSIGNMENT_DATE + Constant.EQUAL + addAp(date) +
+            Constant.WHERE + Constant.CONSIGNMENT_DATE + Constant.EQUAL + addAp(date) + Constant.AND +
             Constant.CONSIGNMENT_PROVIDER_ID + Constant.EQUAL + number;
         return result;
     }
 
-    public List<Consignment> searchConsignment(String date, int number) throws SQLException, ClassNotFoundException {
+    public List<Consignment> searchConsignment(String date, String number) throws SQLException, ClassNotFoundException {
         ArrayList<Consignment> result = new ArrayList<>();
         Class.forName("com.mysql.jdbc.Driver");
         settingProperties();
@@ -86,8 +86,46 @@ public class DataBase {
         return result;
     }
 
+    public List<Foodstuff> searchFoodStuffRecipe() throws SQLException, ClassNotFoundException {
+        ArrayList<Foodstuff> result = new ArrayList<>();
+        Class.forName("com.mysql.jdbc.Driver");
+        settingProperties();
+        Connection connection = DriverManager.getConnection(url, p);
+        try (Statement statement = connection.createStatement()) {
+            ResultSet resultSet = statement.executeQuery(eqSearchFoodStuffRecipe());
+            while (resultSet.next()) {
+                result.add(new Foodstuff(
+                        resultSet.getString(1),
+                        resultSet.getString(2),
+                        Integer.parseInt(resultSet.getString(0)),
+                        Integer.parseInt(resultSet.getString(0))));
+            }
+            //System.out.println("We're created Technics.");
+        }
+        return result;
+    }
+
     public String eqSearchMinCalories(){
         String result = Constant.SELECT_SORT_MIN_CALORIES;
+        return result;
+    }
+
+    public List<Foodstuff> searchMinCalories() throws SQLException, ClassNotFoundException {
+        ArrayList<Foodstuff> result = new ArrayList<>();
+        Class.forName("com.mysql.jdbc.Driver");
+        settingProperties();
+        Connection connection = DriverManager.getConnection(url, p);
+        try (Statement statement = connection.createStatement()) {
+            ResultSet resultSet = statement.executeQuery(eqSearchMinCalories());
+            while (resultSet.next()) {
+                result.add(new Foodstuff(
+                        resultSet.getString(1),
+                        resultSet.getString(2),
+                        Integer.parseInt(resultSet.getString(3)),
+                        Integer.parseInt(resultSet.getString(4))));
+            }
+            //System.out.println("We're created Technics.");
+        }
         return result;
     }
 
